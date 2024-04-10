@@ -1,6 +1,9 @@
-.container-timer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container-time{
+    height: auto;
 }

@@ -1,16 +1,17 @@
 import {useEffect, useState} from "react";
 import styled from 'styled-components';
 
-const randomColor = () => '#' + Math.floor(Math.random()*16777215).toString(16);
+const randomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
+
 const TimerDiv = styled.div`
-    background-color: ${randomColor()};
+    background-color: ${props => props.bgColor};
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 100vh;
 `;
 const TimerH = styled.h1`
-  color: ${randomColor()};
+    color: ${props => props.textColor};
 `;
 const Timer = () => {
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
@@ -20,15 +21,20 @@ const Timer = () => {
         setCurrentTime(new Date().toLocaleTimeString());
     }
     useEffect(() => {
-        setInterval(timeChange, 1000);
-        setInterval()
-
-    });
+        const intervalId = setInterval(() => {
+            timeChange();
+            setBgColor(randomColor());
+            setTextColor(randomColor());
+        }, 1000)
+        return () => clearInterval(intervalId);
+    }, []);
     return (
         <>
-            <TimerDiv bgColor={bgColor}>
-                <TimerH textColor={textColor}>{currentTime}</TimerH>
-            </TimerDiv>
+            <div className="container-time">
+                <TimerDiv bgColor={bgColor}>
+                    <TimerH textColor={textColor}>{currentTime}</TimerH>
+                </TimerDiv>
+            </div>
         </>
     );
 }
